@@ -114,7 +114,7 @@ func isPlayerExperienced(player: [String:String]) -> Bool {
 */
 
 func isTeamFull(team: [String:String]) -> Bool {
-    return playersOnTeam(team).count >= maxPlayersPerTeam
+    return playersOnTeam(team: team).count >= maxPlayersPerTeam
 }
 
 /**
@@ -132,8 +132,8 @@ func isTeamFull(team: [String:String]) -> Bool {
 func isTeamAcceptingExperiencedPlayers(team: [String:String]) -> Bool {
     var countOfExperiencedPlayers = 0
 
-    for player in playersOnTeam(team) {
-        if (isPlayerExperienced(player)) {
+    for player in playersOnTeam(team: team) {
+        if (isPlayerExperienced(player: player)) {
             countOfExperiencedPlayers = countOfExperiencedPlayers + 1
         }
     }
@@ -172,10 +172,10 @@ func addPlayerToTeam(player: [String:String], team: [String:String]) {
 
 func placePlayerOnTeam(player: [String:String]) {
     for team in teamsInLeague {
-        if (isTeamFull(team)) || (isPlayerExperienced(player)) && !(isTeamAcceptingExperiencedPlayers(team)) {
+        if (isTeamFull(team: team)) || (isPlayerExperienced(player: player)) && !(isTeamAcceptingExperiencedPlayers(team: team)) {
             continue
         } else {
-            addPlayerToTeam(player, team: team)
+            addPlayerToTeam(player: player, team: team)
         }
     }
 }
@@ -209,11 +209,11 @@ func generateLetter(player: [String:String], team: [String:String]) -> String {
 */
 
 for player in playersInLeague {
-    placePlayerOnTeam(player)
+    placePlayerOnTeam(player: player)
 }
 
 for team in teamsInLeague {
-    for player in playersOnTeam(team) {
-        print(generateLetter(player, team: team))
+    for player in playersOnTeam(team: team) {
+        print(generateLetter(player: player, team: team))
     }
 }
